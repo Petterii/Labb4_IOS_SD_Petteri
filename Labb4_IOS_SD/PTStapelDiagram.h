@@ -10,6 +10,10 @@
 
 IB_DESIGNABLE
 @interface PTStapelDiagram : UIView
-
+@property (nonatomic) float heightScale;
+@property (nonatomic) float stapelThickness;
+@property (nonatomic)  int userindex;
+@property (nonatomic) float stapelSpaceing;
+@property (nonatomic) int colorIndex;
 
 @end

@@ -48,27 +48,27 @@
     }
     
     
-    float heightScale = (rect.size.height-30) / [usersD[highestNr][@"value"] floatValue];
-    float stapelThickness = rect.size.width * (1.0f/((float)usersD.count+1.0f));
-    int userindex = 0;
-    int colorIndex= 0;
-    float stapelStart = stapelThickness / usersD.count;
-    
-    for (float i = stapelStart+(stapelThickness/2); i < rect.size.width; i=i+stapelStart+stapelThickness) {
+    self.heightScale = (rect.size.height-30) / [usersD[highestNr][@"value"] floatValue];
+    self.stapelThickness = rect.size.width * (1.0f/((float)usersD.count+1.0f));
+    self.userindex = 0;
+    self.colorIndex= 0;
+    self.stapelSpaceing = self.stapelThickness / ((float)usersD.count-1.0f);
+  
+    for (float i = self.stapelThickness/2; i < rect.size.width; i=i+self.stapelSpaceing+self.stapelThickness) {
         linePath = CGPathCreateMutable();
-        [self drawText:i-10 yPosition:rect.size.height-20 canvasWidth:rect.size.width canvasHeight:rect.size.height users:usersD[userindex] color:colors[colorIndex]];
+        [self drawText:i-10 yPosition:rect.size.height-20 canvasWidth:rect.size.width canvasHeight:rect.size.height users:usersD[self.userindex] color:colors[self.colorIndex]];
     
         CGPathMoveToPoint(linePath, NULL, i,rect.size.height-30);
-        CGPathAddLineToPoint(linePath, NULL, i,rect.size.height-30-[usersD[userindex][@"value"] intValue]*heightScale);
+        CGPathAddLineToPoint(linePath, NULL, i,rect.size.height-30-[usersD[self.userindex][@"value"] intValue]*self.heightScale);
         UIBezierPath *path2 = [UIBezierPath bezierPathWithCGPath:linePath];
-        [colors[colorIndex] setStroke];
-        path2.lineWidth = stapelThickness;
+        [colors[self.colorIndex] setStroke];
+        path2.lineWidth = self.stapelThickness;
         [path2 stroke];
-          userindex++;
-        if (colorIndex==colors.count-1) {
-            colorIndex=0;
+          self.userindex++;
+        if (self.colorIndex==colors.count-1) {
+            self.colorIndex=0;
         } else{
-            colorIndex++;
+            self.colorIndex++;
         }
     }
     
